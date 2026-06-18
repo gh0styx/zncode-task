@@ -6,6 +6,7 @@
   --line: #cfdbe2;
   --panel: #ffffff;
   --bg: #edf2f5;
+  --sidebar-width: 270px;
 }
 
 * {
@@ -99,7 +100,7 @@ select {
 
 .app-shell {
   display: grid;
-  grid-template-columns: 200px 1fr;
+  grid-template-columns: var(--sidebar-width) 1fr;
   min-height: 100vh;
   padding-top: 72px;
 
@@ -114,7 +115,8 @@ select {
   position: fixed;
   top: 72px;
   bottom: 0;
-  width: 200px;
+  left: 0;
+  width: var(--sidebar-width);
   padding-top: 48px;
   background: #fff;
   box-shadow: 8px 0 30px rgb(36 52 61 / 12%);
@@ -482,7 +484,8 @@ select {
   grid-template-columns: 14px 54px minmax(300px, 1.1fr) 86px 130px 72px 120px 180px minmax(240px, 0.9fr) 130px 36px;
   gap: 18px;
   align-items: center;
-  min-width: 1370px;
+  width: max-content;
+  min-width: 100%;
   padding: 12px 24px;
   color: #607985;
 
