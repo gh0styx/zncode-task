@@ -1,0 +1,40 @@
+CREATE DATABASE IF NOT EXISTS inventory_test DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE inventory_test;
+
+CREATE TABLE orders (
+  id INT PRIMARY KEY,
+  title VARCHAR(255) NOT NULL,
+  description TEXT,
+  date DATETIME NOT NULL
+);
+
+CREATE TABLE products (
+  id INT PRIMARY KEY,
+  serial_number VARCHAR(64) NOT NULL,
+  is_new BOOLEAN NOT NULL,
+  photo VARCHAR(255) NOT NULL,
+  title VARCHAR(255) NOT NULL,
+  type VARCHAR(64) NOT NULL,
+  specification VARCHAR(255) NOT NULL,
+  guarantee_start DATETIME NOT NULL,
+  guarantee_end DATETIME NOT NULL,
+  order_id INT NOT NULL,
+  date DATETIME NOT NULL,
+  FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE
+);
+
+CREATE TABLE product_prices (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  product_id INT NOT NULL,
+  value DECIMAL(12, 2) NOT NULL,
+  symbol VARCHAR(8) NOT NULL,
+  is_default BOOLEAN NOT NULL,
+  FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
+);
+
+CREATE TABLE users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  email VARCHAR(255) NOT NULL UNIQUE,
+  password_hash VARCHAR(255) NOT NULL,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
