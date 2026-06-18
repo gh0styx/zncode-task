@@ -1,0 +1,16 @@
+{
+  "name": "Inventory Orders & Products",
+  "short_name": "Inventory",
+  "description": "Frontend test task for orders and products inventory management.",
+  "start_url": "/orders",
+  "display": "standalone",
+  "background_color": "#edf2f5",
+  "theme_color": "#83c341",
+  "icons": [
+    {
+      "src": "/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
