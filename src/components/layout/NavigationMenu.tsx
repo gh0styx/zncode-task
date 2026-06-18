@@ -1,8 +1,8 @@
 'use client';
 
+import clsx from 'clsx';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import clsx from 'clsx';
 import { dictionary } from '@/lib/i18n';
 
 const links = [
@@ -20,7 +20,11 @@ export function NavigationMenu() {
     <aside className="nav-menu">
       <div className="nav-menu__profile">
         <div className="nav-menu__avatar" />
-        <button className="nav-menu__settings" type="button" aria-label="settings">
+        <button
+          className="nav-menu__settings"
+          type="button"
+          aria-label="settings"
+        >
           ⚙
         </button>
       </div>
@@ -31,7 +35,14 @@ export function NavigationMenu() {
               {link.label}
             </span>
           ) : (
-            <Link className={clsx('nav-menu__link', pathname === link.href && 'nav-menu__link--active')} href={link.href} key={link.href}>
+            <Link
+              className={clsx(
+                'nav-menu__link',
+                pathname === link.href && 'nav-menu__link--active'
+              )}
+              href={link.href}
+              key={link.href}
+            >
               {link.label}
             </Link>
           )

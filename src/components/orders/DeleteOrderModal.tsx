@@ -2,18 +2,27 @@
 
 import { Button, Modal } from 'react-bootstrap';
 import { dictionary } from '@/lib/i18n';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { cancelDeleteOrder, confirmDeleteOrder } from '@/store/inventorySlice';
 import { selectPendingDeleteOrderId } from '@/store/store';
-import { useAppDispatch, useAppSelector } from '@/store/hooks';
 
 export function DeleteOrderModal() {
   const dispatch = useAppDispatch();
   const pendingId = useAppSelector(selectPendingDeleteOrderId);
-  const order = useAppSelector((state) => state.inventory.orders.find((item) => item.id === pendingId));
-  const product = useAppSelector((state) => state.inventory.products.find((item) => item.order === pendingId));
+  const order = useAppSelector((state) =>
+    state.inventory.orders.find((item) => item.id === pendingId)
+  );
+  const product = useAppSelector((state) =>
+    state.inventory.products.find((item) => item.order === pendingId)
+  );
 
   return (
-    <Modal show={pendingId !== null} centered onHide={() => dispatch(cancelDeleteOrder())} className="delete-modal">
+    <Modal
+      show={pendingId !== null}
+      centered
+      onHide={() => dispatch(cancelDeleteOrder())}
+      className="delete-modal"
+    >
       <Modal.Header closeButton>
         <Modal.Title>{dictionary.ru.deleteOrderQuestion}</Modal.Title>
       </Modal.Header>
@@ -28,8 +37,15 @@ export function DeleteOrderModal() {
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="link" onClick={() => dispatch(cancelDeleteOrder())}>{dictionary.ru.cancel}</Button>
-        <Button className="delete-modal__confirm" onClick={() => dispatch(confirmDeleteOrder())}>🗑 {dictionary.ru.delete}</Button>
+        <Button variant="link" onClick={() => dispatch(cancelDeleteOrder())}>
+          {dictionary.ru.cancel}
+        </Button>
+        <Button
+          className="delete-modal__confirm"
+          onClick={() => dispatch(confirmDeleteOrder())}
+        >
+          🗑 {dictionary.ru.delete}
+        </Button>
       </Modal.Footer>
     </Modal>
   );

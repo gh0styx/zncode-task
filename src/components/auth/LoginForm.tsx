@@ -1,9 +1,9 @@
 'use client';
 
-import { FormEvent, useState } from 'react';
+import { type FormEvent, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import { setToken } from '@/store/sessionSlice';
 import { useAppDispatch } from '@/store/hooks';
+import { setToken } from '@/store/sessionSlice';
 
 type LoginErrors = {
   email?: string;
@@ -25,6 +25,11 @@ const validateLogin = (email: string, password: string): LoginErrors => {
   return errors;
 };
 
+const getApiUrl = (path: string) => {
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, '');
+  return apiUrl ? `${apiUrl}${path}` : path;
+};
+
 export function LoginForm() {
   const dispatch = useAppDispatch();
   const [email, setEmail] = useState('demo@inventory.test');
@@ -42,7 +47,7 @@ export function LoginForm() {
       return;
     }
 
-    const response = await fetch('/api/auth/login', {
+    const response = await fetch(getApiUrl('/api/auth/login'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email: email.trim(), password })
@@ -70,7 +75,9 @@ export function LoginForm() {
           isInvalid={Boolean(validationErrors.email)}
           onChange={(event) => setEmail(event.target.value)}
         />
-        <Form.Control.Feedback type="invalid">{validationErrors.email}</Form.Control.Feedback>
+        <Form.Control.Feedback type="invalid">
+          {validationErrors.email}
+        </Form.Control.Feedback>
       </Form.Group>
       <Form.Group controlId="login-password">
         <Form.Label>Password</Form.Label>
@@ -82,7 +89,9 @@ export function LoginForm() {
           isInvalid={Boolean(validationErrors.password)}
           onChange={(event) => setPassword(event.target.value)}
         />
-        <Form.Control.Feedback type="invalid">{validationErrors.password}</Form.Control.Feedback>
+        <Form.Control.Feedback type="invalid">
+          {validationErrors.password}
+        </Form.Control.Feedback>
       </Form.Group>
       {error && <p className="login-form__error">{error}</p>}
       <Button type="submit">Получить JWT</Button>

@@ -1,5 +1,10 @@
 import { describe, expect, it } from 'vitest';
-import { confirmDeleteOrder, requestDeleteOrder, selectOrder, setProductTypeFilter } from '@/store/inventorySlice';
+import {
+  confirmDeleteOrder,
+  requestDeleteOrder,
+  selectOrder,
+  setProductTypeFilter
+} from '@/store/inventorySlice';
 import { makeStore } from '@/store/store';
 
 describe('inventory store', () => {

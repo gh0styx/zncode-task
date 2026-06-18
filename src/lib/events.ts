@@ -7,17 +7,33 @@ type InventoryEventMap = {
 type Handler<T> = (payload: T) => void;
 
 class EventBus {
-  private handlers = new Map<keyof InventoryEventMap, Set<Handler<InventoryEventMap[keyof InventoryEventMap]>>>();
+  private handlers = new Map<
+    keyof InventoryEventMap,
+    Set<Handler<InventoryEventMap[keyof InventoryEventMap]>>
+  >();
 
-  emit<K extends keyof InventoryEventMap>(event: K, payload: InventoryEventMap[K]) {
-    this.handlers.get(event)?.forEach((handler) => handler(payload));
+  emit<K extends keyof InventoryEventMap>(
+    event: K,
+    payload: InventoryEventMap[K]
+  ) {
+    this.handlers.get(event)?.forEach((handler) => {
+      handler(payload);
+    });
   }
 
-  on<K extends keyof InventoryEventMap>(event: K, handler: Handler<InventoryEventMap[K]>) {
+  on<K extends keyof InventoryEventMap>(
+    event: K,
+    handler: Handler<InventoryEventMap[K]>
+  ) {
     const handlers = this.handlers.get(event) ?? new Set();
-    handlers.add(handler as Handler<InventoryEventMap[keyof InventoryEventMap]>);
+    handlers.add(
+      handler as Handler<InventoryEventMap[keyof InventoryEventMap]>
+    );
     this.handlers.set(event, handlers);
-    return () => handlers.delete(handler as Handler<InventoryEventMap[keyof InventoryEventMap]>);
+    return () =>
+      handlers.delete(
+        handler as Handler<InventoryEventMap[keyof InventoryEventMap]>
+      );
   }
 }
 

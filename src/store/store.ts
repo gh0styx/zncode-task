@@ -1,7 +1,7 @@
 import { configureStore, createSelector } from '@reduxjs/toolkit';
+import { filterProductsByType } from '@/lib/filter';
 import { inventoryReducer } from '@/store/inventorySlice';
 import { sessionReducer } from '@/store/sessionSlice';
-import { filterProductsByType } from '@/lib/filter';
 
 export const makeStore = () =>
   configureStore({
@@ -19,9 +19,12 @@ export type AppDispatch = AppStore['dispatch'];
 
 export const selectOrders = (state: RootState) => state.inventory.orders;
 export const selectProducts = (state: RootState) => state.inventory.products;
-export const selectSelectedOrderId = (state: RootState) => state.inventory.selectedOrderId;
-export const selectPendingDeleteOrderId = (state: RootState) => state.inventory.pendingDeleteOrderId;
-export const selectProductTypeFilter = (state: RootState) => state.inventory.productTypeFilter;
+export const selectSelectedOrderId = (state: RootState) =>
+  state.inventory.selectedOrderId;
+export const selectPendingDeleteOrderId = (state: RootState) =>
+  state.inventory.pendingDeleteOrderId;
+export const selectProductTypeFilter = (state: RootState) =>
+  state.inventory.productTypeFilter;
 
 export const selectFilteredProducts = createSelector(
   [selectProducts, selectProductTypeFilter],
@@ -32,6 +35,11 @@ export const selectSelectedOrder = createSelector(
   [selectOrders, selectProducts, selectSelectedOrderId],
   (items, productItems, id) => {
     const order = items.find((item) => item.id === id);
-    return order ? { ...order, products: productItems.filter((product) => product.order === order.id) } : null;
+    return order
+      ? {
+          ...order,
+          products: productItems.filter((product) => product.order === order.id)
+        }
+      : null;
   }
 );

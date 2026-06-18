@@ -4,19 +4,25 @@ import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 import { Form } from 'react-bootstrap';
 import { ProductRow } from '@/components/products/ProductRow';
-import { dictionary } from '@/lib/i18n';
-import { inventoryEvents } from '@/lib/events';
 import { productTypes } from '@/data/inventory';
+import { inventoryEvents } from '@/lib/events';
+import { dictionary } from '@/lib/i18n';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { setProductTypeFilter } from '@/store/inventorySlice';
 import { selectFilteredProducts, selectProductTypeFilter } from '@/store/store';
-import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import type { ProductType } from '@/types/inventory';
 
-const InventoryInsights = dynamic(() => import('@/components/visuals/InventoryInsights').then((mod) => mod.InventoryInsights), {
-  ssr: false
-});
+const InventoryInsights = dynamic(
+  () =>
+    import('@/components/visuals/InventoryInsights').then(
+      (mod) => mod.InventoryInsights
+    ),
+  {
+    ssr: false
+  }
+);
 
-export function ProductsView({ initialCount }: { initialCount: number }) {
+export function ProductsView() {
   const dispatch = useAppDispatch();
   const filter = useAppSelector(selectProductTypeFilter);
   const products = useAppSelector(selectFilteredProducts);
@@ -37,19 +43,39 @@ export function ProductsView({ initialCount }: { initialCount: number }) {
   };
 
   return (
-    <section className="page animate__animated animate__fadeIn" data-testid="products-view" data-hydrated={hydrated}>
+    <section
+      className="page animate__animated animate__fadeIn"
+      data-testid="products-view"
+      data-hydrated={hydrated}
+    >
       <div className="products-heading">
-        <h1>{dictionary.ru.products} / {products.length}</h1>
-        <Form.Group className="products-heading__filter" controlId="product-type-filter">
+        <h1>
+          {dictionary.ru.products} / {products.length}
+        </h1>
+        <Form.Group
+          className="products-heading__filter"
+          controlId="product-type-filter"
+        >
           <Form.Label>{dictionary.ru.type}:</Form.Label>
-          <Form.Select value={filter} onChange={(event) => setFilter(event.target.value as ProductType | 'all')}>
+          <Form.Select
+            value={filter}
+            onChange={(event) =>
+              setFilter(event.target.value as ProductType | 'all')
+            }
+          >
             <option value="all">Все</option>
-            {productTypes.map((type) => <option key={type} value={type}>{type}</option>)}
+            {productTypes.map((type) => (
+              <option key={type} value={type}>
+                {type}
+              </option>
+            ))}
           </Form.Select>
         </Form.Group>
       </div>
       <div className="products-table">
-        {products.map((product) => <ProductRow key={product.id} product={product} />)}
+        {products.map((product) => (
+          <ProductRow key={product.id} product={product} />
+        ))}
       </div>
       <InventoryInsights products={products} />
     </section>

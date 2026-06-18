@@ -4,10 +4,22 @@ import { Button } from 'react-bootstrap';
 import { dictionary } from '@/lib/i18n';
 import type { OrderWithProducts } from '@/types/inventory';
 
-export function OrderDetails({ order, onClose }: { order: OrderWithProducts; onClose: () => void }) {
+export function OrderDetails({
+  order,
+  onClose
+}: {
+  order: OrderWithProducts;
+  onClose: () => void;
+}) {
   return (
     <aside className="details-panel animate__animated animate__fadeInRight">
-      <Button className="details-panel__close" aria-label="close order details" onClick={onClose}>×</Button>
+      <Button
+        className="details-panel__close"
+        aria-label="close order details"
+        onClick={onClose}
+      >
+        ×
+      </Button>
       <h2>{order.title}</h2>
       <button className="details-panel__add" type="button">
         <span>+</span> {dictionary.ru.addProduct}
@@ -22,7 +34,13 @@ export function OrderDetails({ order, onClose }: { order: OrderWithProducts; onC
               <small>{product.serialNumber}</small>
             </div>
             <span className="detail-product__state">{dictionary.ru.free}</span>
-            <button className="icon-button" type="button" aria-label="delete product">🗑</button>
+            <button
+              className="icon-button"
+              type="button"
+              aria-label="delete product"
+            >
+              🗑
+            </button>
           </div>
         ))}
       </div>

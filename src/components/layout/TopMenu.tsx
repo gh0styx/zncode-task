@@ -5,8 +5,8 @@ import { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
 import { formatClock, formatHeaderDate, formatWeekday } from '@/lib/format';
 import { dictionary } from '@/lib/i18n';
-import { setActiveSessions } from '@/store/sessionSlice';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { setActiveSessions } from '@/store/sessionSlice';
 
 export function TopMenu() {
   const dispatch = useAppDispatch();
@@ -21,8 +21,13 @@ export function TopMenu() {
   }, []);
 
   useEffect(() => {
-    const socket = io({ path: '/socket.io' });
-    socket.on('sessions:count', (count: number) => dispatch(setActiveSessions(count)));
+    const socketUrl = process.env.NEXT_PUBLIC_SOCKET_URL;
+    const socket = socketUrl
+      ? io(socketUrl, { path: '/socket.io' })
+      : io({ path: '/socket.io' });
+    socket.on('sessions:count', (count: number) =>
+      dispatch(setActiveSessions(count))
+    );
     return () => {
       socket.disconnect();
     };
@@ -30,7 +35,11 @@ export function TopMenu() {
 
   return (
     <header className="top-menu">
-      <Link className="top-menu__brand" href="/orders" aria-label="Inventory home">
+      <Link
+        className="top-menu__brand"
+        href="/orders"
+        aria-label="Inventory home"
+      >
         <span className="top-menu__logo" aria-hidden="true" />
         <span>Inventory</span>
       </Link>
@@ -41,9 +50,12 @@ export function TopMenu() {
       <div className="top-menu__meta">
         <span>{mounted ? formatWeekday(now) : ''}</span>
         <strong>{mounted ? formatHeaderDate(now) : ''}</strong>
-        <span className="top-menu__clock" aria-label="current time">
+        <time
+          className="top-menu__clock"
+          dateTime={mounted ? now.toISOString() : undefined}
+        >
           {mounted ? formatClock(now) : ''}
-        </span>
+        </time>
         <span className="top-menu__sessions" title={dictionary.ru.sessions}>
           {sessions}
         </span>

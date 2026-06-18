@@ -33,9 +33,14 @@ const inventorySlice = createSlice({
     },
     confirmDeleteOrder(state) {
       if (state.pendingDeleteOrderId === null) return;
-      state.products = state.products.filter((product) => product.order !== state.pendingDeleteOrderId);
-      state.orders = state.orders.filter((order) => order.id !== state.pendingDeleteOrderId);
-      if (state.selectedOrderId === state.pendingDeleteOrderId) state.selectedOrderId = null;
+      state.products = state.products.filter(
+        (product) => product.order !== state.pendingDeleteOrderId
+      );
+      state.orders = state.orders.filter(
+        (order) => order.id !== state.pendingDeleteOrderId
+      );
+      if (state.selectedOrderId === state.pendingDeleteOrderId)
+        state.selectedOrderId = null;
       state.pendingDeleteOrderId = null;
     },
     setProductTypeFilter(state, action: PayloadAction<ProductType | 'all'>) {

@@ -1,6 +1,23 @@
-import type { CurrencySymbol, Product, TotalsByCurrency } from '@/types/inventory';
+import type {
+  CurrencySymbol,
+  Product,
+  TotalsByCurrency
+} from '@/types/inventory';
 
-const monthRu = ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'];
+const monthRu = [
+  'Янв',
+  'Фев',
+  'Мар',
+  'Апр',
+  'Май',
+  'Июн',
+  'Июл',
+  'Авг',
+  'Сен',
+  'Окт',
+  'Ноя',
+  'Дек'
+];
 
 export const formatDateShort = (value: string) => {
   const date = new Date(value);
@@ -28,10 +45,16 @@ export const formatClock = (date: Date) =>
   }).format(date);
 
 export const formatWeekday = (date: Date) =>
-  new Intl.DateTimeFormat('ru-RU', { weekday: 'long' }).format(date).replace(/^./, (letter) => letter.toUpperCase());
+  new Intl.DateTimeFormat('ru-RU', { weekday: 'long' })
+    .format(date)
+    .replace(/^./, (letter) => letter.toUpperCase());
 
 export const formatHeaderDate = (date: Date) =>
-  new Intl.DateTimeFormat('ru-RU', { day: '2-digit', month: 'short', year: 'numeric' })
+  new Intl.DateTimeFormat('ru-RU', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric'
+  })
     .format(date)
     .replace('.', '');
 

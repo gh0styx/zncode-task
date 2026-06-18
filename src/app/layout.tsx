@@ -2,9 +2,9 @@ import type { Metadata } from 'next';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'animate.css/animate.min.css';
 import '@/styles/globals.scss';
-import { AppProviders } from '@/components/providers/AppProviders';
 import { NavigationMenu } from '@/components/layout/NavigationMenu';
 import { TopMenu } from '@/components/layout/TopMenu';
+import { AppProviders } from '@/components/providers/AppProviders';
 import { PwaRegister } from '@/components/system/PwaRegister';
 
 export const metadata: Metadata = {
@@ -13,7 +13,9 @@ export const metadata: Metadata = {
   manifest: '/manifest.webmanifest'
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({
+  children
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="ru">
       <body>

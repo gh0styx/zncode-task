@@ -7,12 +7,17 @@ const hostname = process.env.HOSTNAME || '127.0.0.1';
 const port = Number(process.env.PORT || 3000);
 const app = next({ dev, hostname, port });
 const handle = app.getRequestHandler();
+const socketCorsOrigin = process.env.SOCKET_CORS_ORIGIN
+  ? process.env.SOCKET_CORS_ORIGIN.split(',')
+      .map((origin) => origin.trim())
+      .filter(Boolean)
+  : '*';
 
 await app.prepare();
 
 const httpServer = createServer((req, res) => handle(req, res));
 const io = new Server(httpServer, {
-  cors: { origin: '*' },
+  cors: { origin: socketCorsOrigin },
   path: '/socket.io'
 });
 

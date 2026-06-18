@@ -1,4 +1,9 @@
-import type { Order, OrderWithProducts, Product, ProductType } from '@/types/inventory';
+import type {
+  Order,
+  OrderWithProducts,
+  Product,
+  ProductType
+} from '@/types/inventory';
 
 export const orders: Order[] = [
   {
@@ -38,13 +43,25 @@ const productTitles = [
   'HP LaserJet Pro M404dn Network'
 ];
 
-export const productTypes: ProductType[] = ['Monitors', 'Laptops', 'Keyboards', 'Printers'];
+export const productTypes: ProductType[] = [
+  'Monitors',
+  'Laptops',
+  'Keyboards',
+  'Printers'
+];
 
 export const products: Product[] = Array.from({ length: 16 }, (_, index) => {
   const id = index + 1;
   const type = productTypes[index % productTypes.length];
   const order = (index % orders.length) + 1;
-  const usd = type === 'Laptops' ? 2500 : type === 'Printers' ? 430 : type === 'Keyboards' ? 120 : 100;
+  const usd =
+    type === 'Laptops'
+      ? 2500
+      : type === 'Printers'
+        ? 430
+        : type === 'Keyboards'
+          ? 120
+          : 100;
   return {
     id,
     serialNumber: `SN-12.34567${80 + id}`,
@@ -72,11 +89,14 @@ export const getOrdersWithProducts = (): OrderWithProducts[] =>
     products: products.filter((product) => product.order === order.id)
   }));
 
-export const getOrderWithProducts = (id: number): OrderWithProducts | undefined =>
+export const getOrderWithProducts = (
+  id: number
+): OrderWithProducts | undefined =>
   getOrdersWithProducts().find((order) => order.id === id);
 
 export const getProductsWithOrderTitle = () =>
   products.map((product) => ({
     ...product,
-    orderTitle: orders.find((order) => order.id === product.order)?.title ?? 'Без прихода'
+    orderTitle:
+      orders.find((order) => order.id === product.order)?.title ?? 'Без прихода'
   }));

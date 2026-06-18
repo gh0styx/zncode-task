@@ -7,7 +7,10 @@ export async function POST(request: Request) {
   const password = typeof body.password === 'string' ? body.password : '';
 
   if (!email.includes('@') || password.length < 4) {
-    return NextResponse.json({ message: 'Invalid credentials' }, { status: 400 });
+    return NextResponse.json(
+      { message: 'Invalid credentials' },
+      { status: 400 }
+    );
   }
 
   return NextResponse.json({

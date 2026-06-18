@@ -1,6 +1,11 @@
 import { describe, expect, it } from 'vitest';
 import { products } from '@/data/inventory';
-import { calculateOrderTotals, formatDateFull, formatDateNumeric, formatDateShort } from '@/lib/format';
+import {
+  calculateOrderTotals,
+  formatDateFull,
+  formatDateNumeric,
+  formatDateShort
+} from '@/lib/format';
 
 describe('inventory formatting', () => {
   it('formats dates in short, full, and numeric assignment formats', () => {
@@ -10,7 +15,9 @@ describe('inventory formatting', () => {
   });
 
   it('calculates order totals in both currencies', () => {
-    const totals = calculateOrderTotals(products.filter((product) => product.order === 1));
+    const totals = calculateOrderTotals(
+      products.filter((product) => product.order === 1)
+    );
     expect(totals.USD).toBeGreaterThan(0);
     expect(totals.UAH).toBe(totals.USD * 25);
   });

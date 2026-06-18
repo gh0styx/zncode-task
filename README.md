@@ -45,9 +45,25 @@ Demo login:
 
 ```bash
 npm run lint
+npm run biome:check
 npm run test
 npm run test:e2e
 npm run build
+```
+
+## Vercel Frontend + VPS Socket.io
+
+For a Vercel frontend with API and Socket.io running on a VPS, set these variables in Vercel:
+
+```bash
+NEXT_PUBLIC_API_URL=https://api.example.com
+NEXT_PUBLIC_SOCKET_URL=https://api.example.com
+```
+
+Set this variable on the VPS backend:
+
+```bash
+SOCKET_CORS_ORIGIN=https://your-app.vercel.app
 ```
 
 ## Docker
