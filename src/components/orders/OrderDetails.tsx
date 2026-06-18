@@ -21,9 +21,6 @@ export function OrderDetails({
         ×
       </Button>
       <h2>{order.title}</h2>
-      <button className="details-panel__add" type="button">
-        <span>+</span> {dictionary.ru.addProduct}
-      </button>
       <div className="details-panel__products">
         {order.products.map((product) => (
           <div className="detail-product" key={product.id}>

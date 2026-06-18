@@ -34,10 +34,9 @@ npm run build
 
 ## Deployment Variables
 
-For a separated frontend and backend deployment, set these variables on the frontend:
+For a separated frontend and backend deployment, set this variable on the frontend:
 
 ```bash
-NEXT_PUBLIC_API_URL=https://api.example.com
 NEXT_PUBLIC_SOCKET_URL=https://api.example.com
 ```
 

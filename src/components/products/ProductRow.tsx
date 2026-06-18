@@ -40,9 +40,6 @@ export function ProductRow({ product }: { product: Product }) {
       <span className="product-row__type">{product.type}</span>
       <span className="product-row__order">{orderTitle}</span>
       <span className="product-row__date">{formatDateFull(product.date)}</span>
-      <button className="icon-button" type="button" aria-label="delete product">
-        🗑
-      </button>
     </article>
   );
 }

@@ -2,7 +2,6 @@
 
 import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
-import { Button } from 'react-bootstrap';
 import { DeleteOrderModal } from '@/components/orders/DeleteOrderModal';
 import { OrderCard } from '@/components/orders/OrderCard';
 import { dictionary } from '@/lib/i18n';
@@ -35,9 +34,6 @@ export function OrdersView() {
       data-hydrated={hydrated}
     >
       <div className="page__heading">
-        <Button className="page__add" aria-label="add order">
-          +
-        </Button>
         <h1>
           {dictionary.ru.orders} / {orders.length}
         </h1>

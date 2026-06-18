@@ -8,7 +8,12 @@ test('orders and products user flow', async ({ page }) => {
     'true'
   );
   await page.locator('.order-card').first().click();
-  await expect(page.locator('.details-panel__add')).toBeVisible();
+  await expect(page.locator('.details-panel')).toBeVisible();
+  await expect(
+    page.locator('.detail-product', {
+      hasText: 'Gigabyte Technology X58-USB3'
+    })
+  ).toHaveCount(4);
   await page.getByRole('button', { name: 'close order details' }).click();
 
   await page.getByRole('link', { name: 'Продукты' }).click();

@@ -14,6 +14,36 @@ describe('OrdersView', () => {
     );
 
     await userEvent.click(screen.getAllByText(/Длинное/)[0]);
-    expect(await screen.findByText('Добавить продукт')).toBeInTheDocument();
+    expect(
+      await screen.findAllByText(
+        'Gigabyte Technology X58-USB3 (Socket 1366) 6 X58-USB3'
+      )
+    ).toHaveLength(4);
+  });
+
+  it('validates delete confirmation before removing an order', async () => {
+    const user = userEvent.setup();
+
+    render(
+      <Provider store={makeStore()}>
+        <OrdersView />
+      </Provider>
+    );
+
+    await user.click(
+      screen.getByRole('button', { name: /delete Длинное название прихода/ })
+    );
+    await user.click(screen.getByRole('button', { name: /Удалить/ }));
+
+    expect(
+      screen.getByText('Подтвердите удаление прихода')
+    ).toBeInTheDocument();
+
+    await user.click(screen.getByLabelText('Подтвердить удаление прихода'));
+    await user.click(screen.getByRole('button', { name: /Удалить/ }));
+
+    expect(
+      screen.queryByText('Подтвердите удаление прихода')
+    ).not.toBeInTheDocument();
   });
 });
