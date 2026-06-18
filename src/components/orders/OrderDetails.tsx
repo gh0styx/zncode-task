@@ -34,13 +34,6 @@ export function OrderDetails({
               <small>{product.serialNumber}</small>
             </div>
             <span className="detail-product__state">{dictionary.ru.free}</span>
-            <button
-              className="icon-button"
-              type="button"
-              aria-label="delete product"
-            >
-              🗑
-            </button>
           </div>
         ))}
       </div>
